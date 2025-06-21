@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本导出助手测试页面</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-text {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+            cursor: pointer;
+            user-select: text;
+        }
+        .test-text:hover {
+            background: #f0f8ff;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 文本导出助手测试页面</h1>
+    
+    <div class="instructions">
+        <h3>🔧 测试步骤：</h3>
+        <ol>
+            <li>确保已安装并启用"文本导出助手"插件</li>
+            <li>选择下方任意文本内容（Ctrl+A 全选或手动选择）</li>
+            <li>复制选中的文本（Ctrl+C）</li>
+            <li>点击浏览器工具栏中的插件图标</li>
+            <li>检查插件是否能正确读取复制的文本</li>
+            <li>尝试导出为不同格式</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 测试文本 1：短文本</h2>
+        <div class="test-text">
+            这是一段测试文本，用于验证文本导出助手插件的功能。请复制这段文本并测试插件是否能正确读取。
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📄 测试文本 2：长文本</h2>
+        <div class="test-text">
+            这是一段较长的测试文本，包含多个段落和不同的内容类型。
+
+            第二段落：这里包含一些特殊字符和数字：1234567890，以及一些标点符号：！@#￥%……&*（）。
+
+            第三段落：这里有一些换行符
+            和制表符	以及空格   来测试文本处理功能。
+
+            第四段落：包含一些常见的文本格式，如粗体、斜体等，以及一些链接：https://www.example.com
+
+            最后一段：测试文本到此结束，感谢您使用文本导出助手插件！
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 测试文本 3：多语言文本</h2>
+        <div class="test-text">
+            English text: This is a test for English content.
+            
+            中文文本：这是中文内容的测试。
+            
+            Español: Este es un texto de prueba en español.
+            
+            Français: Ceci est un texte de test en français.
+            
+            Deutsch: Dies ist ein Testtext auf Deutsch.
+            
+            日本語：これは日本語のテストテキストです。
+            
+            한국어: 이것은 한국어 테스트 텍스트입니다.
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 测试文本 4：数据格式</h2>
+        <div class="test-text">
+            姓名,年龄,城市,职业
+            张三,25,北京,工程师
+            李四,30,上海,设计师
+            王五,28,广州,教师
+            赵六,35,深圳,医生
+            钱七,27,杭州,程序员
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ 测试文本 5：短文本（图片导出测试）</h2>
+        <div class="test-text">
+            你好世界！
+        </div>
+        <div class="test-text">
+            今天天气真好。
+        </div>
+        <div class="test-text">
+            这是一个测试。
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 测试文本 6：中等长度文本</h2>
+        <div class="test-text">
+            这是一段中等长度的文本，用于测试图片导出的自适应功能。文本长度适中，应该能够很好地展示自适应效果。
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 快速测试按钮</h2>
+        <button onclick="selectAndCopy('test1')">选择并复制测试文本1</button>
+        <button onclick="selectAndCopy('test2')">选择并复制测试文本2</button>
+        <button onclick="selectAndCopy('test3')">选择并复制测试文本3</button>
+        <button onclick="selectAndCopy('test4')">选择并复制测试文本4</button>
+        <button onclick="selectAndCopy('short1')">复制超短文本</button>
+        <button onclick="selectAndCopy('short2')">复制短文本</button>
+        <button onclick="selectAndCopy('medium')">复制中等文本</button>
+        <button onclick="selectAll()">全选所有文本</button>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 插件状态检查</h2>
+        <div id="status">正在检查插件状态...</div>
+        <button onclick="checkPluginStatus()">重新检查状态</button>
+    </div>
+
+    <script>
+        // 选择并复制指定文本
+        function selectAndCopy(testId) {
+            const texts = {
+                'test1': '这是一段测试文本，用于验证文本导出助手插件的功能。请复制这段文本并测试插件是否能正确读取。',
+                'test2': `这是一段较长的测试文本，包含多个段落和不同的内容类型。
+
+第二段落：这里包含一些特殊字符和数字：1234567890，以及一些标点符号：！@#￥%……&*（）。
+
+第三段落：这里有一些换行符
+和制表符	以及空格   来测试文本处理功能。
+
+第四段落：包含一些常见的文本格式，如粗体、斜体等，以及一些链接：https://www.example.com
+
+最后一段：测试文本到此结束，感谢您使用文本导出助手插件！`,
+                'test3': `English text: This is a test for English content.
+
+中文文本：这是中文内容的测试。
+
+Español: Este es un texto de prueba en español.
+
+Français: Ceci est un texte de test en français.
+
+Deutsch: Dies ist ein Testtext auf Deutsch.
+
+日本語：これは日本語のテストテキストです。
+
+한국어: 이것은 한국어 테스트 텍스트입니다.`,
+                'test4': `姓名,年龄,城市,职业
+张三,25,北京,工程师
+李四,30,上海,设计师
+王五,28,广州,教师
+赵六,35,深圳,医生
+钱七,27,杭州,程序员`,
+                'short1': '你好世界！',
+                'short2': '今天天气真好。',
+                'medium': '这是一段中等长度的文本，用于测试图片导出的自适应功能。文本长度适中，应该能够很好地展示自适应效果。'
+            };
+            
+            const text = texts[testId];
+            if (text) {
+                // 创建临时文本区域
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // 显示成功消息
+                alert(`已复制测试文本${testId}到剪贴板！\n\n现在请点击浏览器工具栏中的插件图标来测试。`);
+            }
+        }
+
+        // 全选所有文本
+        function selectAll() {
+            const testTexts = document.querySelectorAll('.test-text');
+            let allText = '';
+            
+            testTexts.forEach((element, index) => {
+                allText += `=== 测试文本 ${index + 1} ===\n`;
+                allText += element.textContent + '\n\n';
+            });
+            
+            // 创建临时文本区域
+            const textArea = document.createElement('textarea');
+            textArea.value = allText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            alert('已复制所有测试文本到剪贴板！\n\n现在请点击浏览器工具栏中的插件图标来测试。');
+        }
+
+        // 检查插件状态
+        function checkPluginStatus() {
+            const statusDiv = document.getElementById('status');
+            
+            // 检查是否在Chrome扩展环境中
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                statusDiv.innerHTML = `
+                    <div style="color: green;">
+                        ✅ 检测到Chrome扩展环境<br>
+                        ✅ 可以访问chrome.runtime API<br>
+                        📋 请复制上方任意文本，然后点击插件图标测试
+                    </div>
+                `;
+            } else {
+                statusDiv.innerHTML = `
+                    <div style="color: red;">
+                        ❌ 未检测到Chrome扩展环境<br>
+                        ⚠️ 此页面需要在Chrome浏览器中打开才能测试插件功能
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载时检查状态
+        window.addEventListener('load', checkPluginStatus);
+    </script>
+</body>
+</html> 

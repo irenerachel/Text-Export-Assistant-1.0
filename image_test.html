@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片导出自适应测试</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .test-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .test-card:hover {
+            transform: translateY(-2px);
+        }
+        .test-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2196F3;
+        }
+        .test-text {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .test-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196F3;
+        }
+        .comparison {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-good { background: #4CAF50; }
+        .status-medium { background: #FF9800; }
+        .status-poor { background: #f44336; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🖼️ 图片导出自适应测试</h1>
+        <p>测试不同长度文本的图片导出效果，验证自适应功能</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 测试说明：</h3>
+        <ol>
+            <li>点击下方任意测试卡片的"复制文本"按钮</li>
+            <li>打开文本导出助手插件</li>
+            <li>选择JPG或PNG格式导出</li>
+            <li>观察图片尺寸、字体大小和整体效果</li>
+            <li>对比不同长度文本的导出效果</li>
+        </ol>
+    </div>
+
+    <div class="test-grid">
+        <div class="test-card">
+            <div class="test-title">📝 超短文本 (5字符)</div>
+            <div class="test-text">你好！</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：800×300px左右<br>
+                • 字体大小：36px<br>
+                • 文件大小：较小<br>
+                • 布局：紧凑
+            </div>
+            <button class="copy-btn" onclick="copyText('你好！')">复制文本</button>
+        </div>
+
+        <div class="test-card">
+            <div class="test-title">📝 短文本 (15字符)</div>
+            <div class="test-text">今天天气真好。</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：900×350px左右<br>
+                • 字体大小：32px<br>
+                • 文件大小：中等<br>
+                • 布局：适中
+            </div>
+            <button class="copy-btn" onclick="copyText('今天天气真好。')">复制文本</button>
+        </div>
+
+        <div class="test-card">
+            <div class="test-title">📝 中等文本 (50字符)</div>
+            <div class="test-text">这是一段中等长度的文本，用于测试图片导出的自适应功能。</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：1000×400px左右<br>
+                • 字体大小：26px<br>
+                • 文件大小：中等<br>
+                • 布局：标准
+            </div>
+            <button class="copy-btn" onclick="copyText('这是一段中等长度的文本，用于测试图片导出的自适应功能。')">复制文本</button>
+        </div>
+
+        <div class="test-card">
+            <div class="test-title">📝 较长文本 (100字符)</div>
+            <div class="test-text">这是一段较长的文本，包含更多的内容来测试图片导出的自适应功能。文本长度适中，应该能够很好地展示自适应效果。</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：1100×450px左右<br>
+                • 字体大小：22px<br>
+                • 文件大小：较大<br>
+                • 布局：宽松
+            </div>
+            <button class="copy-btn" onclick="copyText('这是一段较长的文本，包含更多的内容来测试图片导出的自适应功能。文本长度适中，应该能够很好地展示自适应效果。')">复制文本</button>
+        </div>
+
+        <div class="test-card">
+            <div class="test-title">📝 长文本 (200字符)</div>
+            <div class="test-text">这是一段很长的文本，包含大量的内容来测试图片导出的自适应功能。文本长度较长，应该能够很好地展示自适应效果。这段文本包含多个句子，用于测试文本换行和布局效果。</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：1200×500px左右<br>
+                • 字体大小：18px<br>
+                • 文件大小：大<br>
+                • 布局：宽松
+            </div>
+            <button class="copy-btn" onclick="copyText('这是一段很长的文本，包含大量的内容来测试图片导出的自适应功能。文本长度较长，应该能够很好地展示自适应效果。这段文本包含多个句子，用于测试文本换行和布局效果。')">复制文本</button>
+        </div>
+
+        <div class="test-card">
+            <div class="test-title">📝 多行文本</div>
+            <div class="test-text">第一行：这是第一行文本。
+第二行：这是第二行文本。
+第三行：这是第三行文本。</div>
+            <div class="test-info">
+                <strong>预期效果：</strong><br>
+                • 图片尺寸：根据总长度自适应<br>
+                • 字体大小：根据总长度自适应<br>
+                • 换行：正确处理<br>
+                • 布局：美观
+            </div>
+            <button class="copy-btn" onclick="copyText('第一行：这是第一行文本。\n第二行：这是第二行文本。\n第三行：这是第三行文本。')">复制文本</button>
+        </div>
+    </div>
+
+    <div class="comparison">
+        <h3>📊 自适应效果对比表</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>文本长度</th>
+                    <th>图片宽度</th>
+                    <th>字体大小</th>
+                    <th>分辨率</th>
+                    <th>预期文件大小</th>
+                    <th>布局特点</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="status-indicator status-good"></span>&lt; 50字符</td>
+                    <td>800px</td>
+                    <td>36px</td>
+                    <td>2x</td>
+                    <td>小</td>
+                    <td>紧凑，大字体</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-good"></span>50-150字符</td>
+                    <td>900px</td>
+                    <td>32px</td>
+                    <td>2.5x</td>
+                    <td>中小</td>
+                    <td>适中，大字体</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-medium"></span>150-300字符</td>
+                    <td>1000px</td>
+                    <td>26px</td>
+                    <td>3x</td>
+                    <td>中等</td>
+                    <td>标准，中等字体</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-medium"></span>300-600字符</td>
+                    <td>1100px</td>
+                    <td>22px</td>
+                    <td>3x</td>
+                    <td>中大</td>
+                    <td>宽松，标准字体</td>
+                </tr>
+                <tr>
+                    <td><span class="status-indicator status-poor"></span>&gt; 600字符</td>
+                    <td>1200px</td>
+                    <td>18px</td>
+                    <td>3x</td>
+                    <td>大</td>
+                    <td>宽松，小字体</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function copyText(text) {
+            // 创建临时文本区域
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // 显示成功消息
+            const charCount = text.length;
+            alert(`✅ 已复制文本到剪贴板！\n\n文本长度: ${charCount}字符\n\n现在请打开文本导出助手插件，选择JPG或PNG格式导出，观察自适应效果。`);
+        }
+
+        // 页面加载时的提示
+        window.addEventListener('load', function() {
+            console.log('🖼️ 图片导出自适应测试页面已加载');
+            console.log('💡 提示: 点击任意"复制文本"按钮开始测试');
+        });
+    </script>
+</body>
+</html> 
